@@ -1,47 +1,40 @@
-//----------------- TYPESCRIPT ---------------
+//-----------------Tipos de datps en TS ---------------
 
-//-- PRIMERAS VARIABLES
-//Podemos declarar las primeras variables de la siguiente manera:
-const msg: string = "Holas mundos, soy Lucas";
+//-- Inferir tipos y modo estricto
+//Si creo las siguientes variables pasa lo siguiente
 
-console.log(msg);
+const a = 10; //TS me indica que esta variable es 10, no va a ser modificable por que es una constante.
+let b = 10; //TS me indica que es un Number pero no me defina el vario ya que es un let.
 
-/*Una vez escrito el codigo en TS se debe transpilar para que se traduzca a JS.Para ello, debemos insertar 
-el siguinete comando en consola:
+//Para ello, y para no dejar variables a libreinterpretacion es recomentable hacer las variables de la siguiente manera:
 
-    tsc app
+const c: number = 10; //TS interpreta que esto es un number
+let d: number = 20; //TS interpreta que esto es un string
 
- Esto va a crear un archivo llamado app.js donde pondra todo el codigo JS. Poro otro lado, en HTML, se debe 
- insertar el siguiente script:
+//-- Booleans
+//A los booleanos lo podemos declarar de la siguiente manera
 
- <script src="app.js"></script>
-*/
+let isSuperman: boolean = true;
+let isBatman: boolean = false;
 
-//-- TSCONFIG.JSON
-/*Dentro de la carpeta del proyecto se debe escribir el siguiente comando en consola:
+isSuperman = isBatman ? false : true; //Si so si hay que asignarle un booleano como reaultado por que si no marca error
 
-    tsc --init
+//-- Numbers
 
- Esto va a crear un archivo llamado tsconfig.json donde estaran indicadas todas las configuraciones de TS.
- En este archivo vamos a configurar el objetivo, el archivo de salida y que tan esctricto sea TS.
+//-- Strings
 
- Teniendo este archivo creado ya no sera necesario hacer el "tsc app" si no que simplemente sera necesario
-  escribir en consola:
+//-- Tipo de Any
 
-    tsc
-*/
+//-- Arrays
 
-//--- WATCH MODE
-/*Esta herramiento de TS es como un LiveServer pero que transpila constantemente declarado en TS. Para poder
-usarlo se debe escribir el siguiente comando en consola:
+//-- Tuples / Tuplas
 
-    tsc --watch
+//-- Enum / Enumeraciones
 
-O si no:
+//-- Void / Vacios
 
-    tsc --w
+//-- Never
 
-Luego se debe cerrar la terminal con la "X" y no con el icono del "tacho de basura" por que 
-termina la operacion. 
+//-- Null
 
-*/
+//-- Undefined

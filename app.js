@@ -1,43 +1,24 @@
 "use strict";
-//----------------- TYPESCRIPT ---------------
-//-- PRIMERAS VARIABLES
-//Podemos declarar las primeras variables de la siguiente manera:
-const msg = "Holas mundos, soy Lucas";
-console.log(msg);
-/*Una vez escrito el codigo en TS se debe transpilar para que se traduzca a JS.Para ello, debemos insertar
-el siguinete comando en consola:
-
-    tsc app
-
- Esto va a crear un archivo llamado app.js donde pondra todo el codigo JS. Poro otro lado, en HTML, se debe
- insertar el siguiente script:
-
- <script src="app.js"></script>
-*/
-//-- TSCONFIG.JSON
-/*Dentro de la carpeta del proyecto se debe escribir el siguiente comando en consola:
-
-    tsc --init
-
- Esto va a crear un archivo llamado tsconfig.json donde estaran indicadas todas las configuraciones de TS.
- En este archivo vamos a configurar el objetivo, el archivo de salida y que tan esctricto sea TS.
-
- Teniendo este archivo creado ya no sera necesario hacer el "tsc app" si no que simplemente sera necesario
-  escribir en consola:
-
-    tsc
-*/
-//--- WATCH MODE
-/*Esta herramiento de TS es como un LiveServer pero que transpila constantemente declarado en TS. Para poder
-usarlo se debe escribir el siguiente comando en consola:
-
-    tsc --watch
-
-O si no:
-
-    tsc --w
-
-Luego se debe cerrar la terminal con la "X" y no con el icono del "tacho de basura" por que
-termina la operacion.
-
-*/
+//-----------------Tipos de datps en TS ---------------
+//-- Inferir tipos y modo estricto
+//Si creo las siguientes variables pasa lo siguiente
+const a = 10; //TS me indica que esta variable es 10, no va a ser modificable por que es una constante.
+let b = 10; //TS me indica que es un Number pero no me defina el vario ya que es un let.
+//Para ello, y para no dejar variables a libreinterpretacion es recomentable hacer las variables de la siguiente manera:
+const c = 10; //TS interpreta que esto es un number
+let d = 20; //TS interpreta que esto es un string
+//-- Booleans
+//A los booleanos lo podemos declarar de la siguiente manera
+let isSuperman = true;
+let isBatman = false;
+isSuperman = isBatman ? false : true; //Si so si hay que asignarle un booleano como reaultado por que si no marca error
+//-- Numbers
+//-- Strings
+//-- Tipo de Any
+//-- Arrays
+//-- Tuples / Tuplas
+//-- Enum / Enumeraciones
+//-- Void / Vacios
+//-- Never
+//-- Null
+//-- Undefined
