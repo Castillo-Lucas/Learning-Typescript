@@ -48,4 +48,24 @@ superman: hero = {
     powers: ["Super velocidad", "Super fuerza"]
 }
 
-//-- Multiples tipos permitidos
+//-- Multiples tipos de datos permitidos
+//Suponiendo que tenemos el siguiente tipo con la palabra reservada de TS "type"
+type villian = { 
+    name:string,
+    age?:number,
+    powers:string[],
+    getName?: () => string 
+}
+
+//Podemos declara la siguiene variable e instanciarle diferente tipos de datos, incluso de "villian".
+let myCustomVillian:( string | number | villian )= "Joker" //En este caso es de tipo string
+
+myCustomVillian = 50; //En este caso es de tipo number
+
+myCustomVillian={ //En este caso la variable es de tipo "villian" pero JS lo interpreta como un object
+    name: "Thanos",
+    age: 560,
+    powers: "Mucha fuerza"
+}
+
+
