@@ -1,134 +1,100 @@
-//-----------------Tipos de datps en TS ---------------
+//----------------- Funciones y Objetos ---------------
 
-//-- Inferir tipos y modo estricto
-//Si creo las siguientes variables pasa lo siguiente
+//-- Funciones básicas
+//Se debe declarar que tipo de dato retorna la funcion
+const hero: string = "batman";
 
-const a = 10; //TS me indica que esta variable es 10, no va a ser modificable por que es una constante.
-let b = 10; //TS me indica que es un Number pero no me defina el vario ya que es un let.
-
-//Para ello, y para no dejar variables a libreinterpretacion es recomentable hacer las variables de la siguiente manera:
-
-const c: number = 10; //TS interpreta que esto es un number
-let d: number = 20; //TS interpreta que esto es un string
-
-//-- Booleans
-//A los booleanos lo podemos declarar de la siguiente manera
-let isSuperman: boolean = true;
-let isBatman: boolean = false;
-
-isSuperman = isBatman ? false : true; //Si so si hay que asignarle un booleano como reaultado por que si no marca error
-
-//-- Numbers
-const firstNumber: number = 10;
-let secondNumber: number = 20;
-
-//-- Strings
-//Podemos delcarar strings de las siguientes tres maneras:
-const batman: string = "Batman";
-const linternaVerde: string = "Linterna Verde";
-const Ironman: string = `Ironman`;
-
-//-- Any
-//Esto sirve para usar que el dato que se usar sea de cualquier tipo. Hay que evitar de usarlo.
-let avenger: any = "Dr Strange";
-avenger = true; //Luego puede convertirse en un booleano
-avenger = 123; //Y tambien puede convertirse en un number
-
-//-- Arrays
-//Se pueden definir los tipos de arreglos, estos pueden ser de un solo tipo o combinados.
-const conteo: number[] = [1, 2, 3, 4, 5, 6];
-const palabras: string[] = ["letra", "casa", "cosa"];
-const convinado: (number | string | boolean)[] = [12, "doce", true];
-
-//-- Tuples / Tuplas
-//Sirve para determinar el tipo de dato de un arreglo segun la posicion del mismo.
-const hero: [string, number, boolean, string] = [
-  "Spider-man",
-  100,
-  true,
-  "Tela Araña",
-];
-
-//Luego podemos asignarles otro valor pero respetando lo establecido:
-hero[0] = "Captain America";
-hero[1] = 150;
-hero[2] = false;
-hero[3] = "Mucha fuerza";
-
-//-- Enum / Enumeraciones
-//Podemos determinar cierto rango de valores:
-enum AudioLevel { //Open Upper Case
-  min = 1,
-  medium = 5,
-  max = 10,
+function returnName(): string {
+  return hero;
 }
 
-let currentAudio = AudioLevel.max;
+const heroName = returnName(); //El tipo de dato de esta variable es igual al tipo de dato de la funcion que se llama, en este caso es un String.
 
-//-- Void / Vacios
-//TS interpreta que no hay un valor de retorno, lo cual se puede usar para una funcion vacía.
-function batman2(): void {
-  return;
-}
-
-const superman = (): void => {
-  return;
+const activarBatiSeñal = (): string => {
+  return "Bati señal activada";
 };
 
-//-- Never
-//Sirve para determinar una funcion que va a terminar con un error
-const error = (msg: string): never | number => {
-  if (false) {
-    throw new Error(msg);
+//-- Parámetros obligatorios de las funciones
+//Cada vez que se recibe un parametro en una funcion se debe declara el tipo de dato que se recibe
+const fullName = (firstName: string, lastName: string): string => {
+  return `${firstName} ${lastName}`;
+};
+
+const superName = fullName("Tony", "Stark");
+
+//-- Parámetros opcionales de las funciones
+/*Si bien todos los parametros declarados son obligatorios, tambien podemos condicionar algun parametro para que
+sea opcional colocando un signo de interrogacion "?" luego del parametro y antes de la declaracion del tipo de dato*/
+
+const hisName = (firstName: string, lastName?: string): string => {
+  return `${firstName} ${lastName || ""}`;
+};
+
+const hisSuperName = hisName("Tony");
+
+//-- Parámetros por defecto
+/*Los parametros por defecto deben ir todos juntos al principio y al ultimo se deben colocar los paramentros opcionales salvo que en el mismo parametro
+se declaren el valor de parametro*/
+const spideDetail = (
+  heroName: string,
+  levelPower: number,
+  firstName: string,
+  lastName?: string,
+  isGood: boolean = true
+): string => {
+  return `El super heroe es ${heroName} y su poder esta al ${levelPower}%. Su nombre real es ${firstName} ${
+    lastName || "(...sin datos)"
+  } y la verdad que ${
+    isGood === true ? "es bueno" : "no es tan bueno"
+  } en lo que hace.`;
+};
+
+const spiderman = spideDetail("Spiderman", 100, "Peter");
+const spiderman2 = spideDetail("Spiderman", 100, "Peter", "Parker", false);
+console.log(spiderman);
+console.log(spiderman2);
+
+//-- Parámetros REST
+//Esto no es ni mas ni menos que el Rest Operator, podemos tomar los parametros restantes siguientes al parametro obligatorio y mandarlos a llamar.
+const fullSupermanName = (
+  firstName: string,
+  ...restoDeNombres: string[] //Viene como un arreglo de strings
+): string => {
+  return `${firstName} ${restoDeNombres.join(" ")}`;
+};
+
+const supermanName = fullSupermanName("Clark", "Joseph", "Kent");
+console.log(supermanName);
+
+//-- Tipo función.
+
+//------- TAREA----
+// Funciones Básicas
+function sumar(a: number, b: number) {
+  return a + b;
+}
+
+const aSumar = sumar(1, 2);
+
+const contar = (heroes: string[]) => {
+  return heroes.length;
+};
+const superHeroes: string[] = ["Flash", "Arrow", "Superman", "Linterna Verde"];
+contar(superHeroes);
+
+//Parametros por defecto
+const llamarBatman = (llamar: boolean) => {
+  if (llamar) {
+    console.log("Batiseñal activada");
   }
-
-  return 1;
 };
 
-error("Auxilio");
+llamarBatman(true);
 
-//-- Null
-const incompleto: undefined = undefined;
+// Rest?
+const unirheroes = (...personas: string[]) => {
+  return `Superheories unidos: ${personas.join(", ")}`;
+};
 
-//-- Undefined
-const nulo: null = null;
-
-//--------- TAREA -----
-// Tipos
-const batman3: string = "Bruce";
-const superman2: string = "Clark";
-
-const existe: boolean = false;
-
-// Tuplas
-const parejaHeroes: [string, string] = [batman3, superman2];
-const villano: [string, number, boolean] = ["Lex Lutor", 5, true];
-
-// Arreglos
-const aliados: string[] = ["Mujer Maravilla", "Acuaman", "San", "Flash"];
-
-//Enumeraciones
-enum PowerLevel {
-  flash = 5,
-  Superman = 100,
-  Batman = 1,
-  Acuaman = 0,
-}
-const fuerzaFlash = PowerLevel.flash;
-const fuerzaSuperman = PowerLevel.Superman;
-const fuerzaBatman = PowerLevel.Batman;
-const fuerzaAcuaman = PowerLevel.Acuaman;
-
-// Retorno de funciones
-function activar_batiseñal(): string {
-  return "activada";
-}
-
-function pedir_ayuda(): void {
-  console.log("Auxilio!!!");
-}
-
-// Aserciones de Tipo
-const poder: any = "100";
-const largoDelPoder: number = (poder as string).length;
-console.log(largoDelPoder);
+const sepheroes = unirheroes("Batman", "Catwoman", "Robin");
+console.log(sepheroes);
