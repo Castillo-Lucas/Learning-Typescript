@@ -1,68 +1,55 @@
 "use strict";
-//----------------- Funciones y Objetos ---------------
-//-- Funciones básicas
-//Se debe declarar que tipo de dato retorna la funcion
-const hero = "batman";
-function returnName() {
-    return hero;
-}
-const heroName = returnName(); //El tipo de dato de esta variable es igual al tipo de dato de la funcion que se llama, en este caso es un String.
-const activarBatiSeñal = () => {
-    return "Bati señal activada";
-};
-//-- Parámetros obligatorios de las funciones
-//Cada vez que se recibe un parametro en una funcion se debe declara el tipo de dato que se recibe
-const fullName = (firstName, lastName) => {
-    return `${firstName} ${lastName}`;
-};
-const superName = fullName("Tony", "Stark");
-//-- Parámetros opcionales de las funciones
-/*Si bien todos los parametros declarados son obligatorios, tambien podemos condicionar algun parametro para que
-sea opcional colocando un signo de interrogacion "?" luego del parametro y antes de la declaracion del tipo de dato*/
-const hisName = (firstName, lastName) => {
-    return `${firstName} ${lastName || ""}`;
-};
-const hisSuperName = hisName("Tony");
-//-- Parámetros por defecto
-/*Los parametros por defecto deben ir todos juntos al principio y al ultimo se deben colocar los paramentros opcionales salvo que en el mismo parametro
-se declaren el valor de parametro*/
-const spideDetail = (heroName, levelPower, firstName, lastName, isGood = true) => {
-    return `El super heroe es ${heroName} y su poder esta al ${levelPower}%. Su nombre real es ${firstName} ${lastName || "(...sin datos)"} y la verdad que ${isGood === true ? "es bueno" : "no es tan bueno"} en lo que hace.`;
-};
-const spiderman = spideDetail("Spiderman", 100, "Peter");
-const spiderman2 = spideDetail("Spiderman", 100, "Peter", "Parker", false);
-console.log(spiderman);
-console.log(spiderman2);
-//-- Parámetros REST
-//Esto no es ni mas ni menos que el Rest Operator, podemos tomar los parametros restantes siguientes al parametro obligatorio y mandarlos a llamar.
-const fullSupermanName = (firstName, ...restoDeNombres //Viene como un arreglo de strings
-) => {
-    return `${firstName} ${restoDeNombres.join(" ")}`;
-};
-const supermanName = fullSupermanName("Clark", "Joseph", "Kent");
-console.log(supermanName);
-//-- Tipo función.
-//------- TAREA----
-// Funciones Básicas
-function sumar(a, b) {
-    return a + b;
-}
-const aSumar = sumar(1, 2);
-const contar = (heroes) => {
-    return heroes.length;
-};
-const superHeroes = ["Flash", "Arrow", "Superman", "Linterna Verde"];
-contar(superHeroes);
-//Parametros por defecto
-const llamarBatman = (llamar) => {
-    if (llamar) {
-        console.log("Batiseñal activada");
+//----------------- Depuración de errores y el archivo tsconfig.json ---------------
+//-- ¿Que es el archivo tsconfig.json y para que nos puede servir?
+//-- ¿Que es el archivo tsconfig.json y para que nos puede servir?
+/*El archivo tsconfig.json sirve para confirurar la esctructura de trabajo de Typesript. Por ejemplo, si hacemos console.log
+el navegador va a mostrar el mensaje pero va a hacer refencia al archivo .js y mostrar en que linea se declaro ese metodo. Pero
+eso no nos sirve ya que estamos trabajando en Typescript, entonces, para poder solucionar este inconveniente debemos hacert una pequeña
+configuracion en el arvhico tsconfig.json quitandole el comentario al siguiente comando
+
+    "sourceMap": true,
+
+Esto va a permitir que al mostrar un mensaje en el navegador se muestre en que linea del archivo .ts se declaro. Otro punto para
+tener en cuenta es que esto va a crear un archivo .map por cada archivo .ts que tengamos*/
+//-- Remover comentarios en el archivo .js
+/*Si hacemos comentarios en el archivo .ts se transpilan al archivo .js y se muestran en el mismo. Para evitar que esto pase debemos hacer
+un pequeño cambio en el arvhico tsconfig.json descomentando el siguiente comando
+
+    "removeComments": true,
+
+Ahora en el archivo .js no se van a ver los comentarios.
+*/
+//-- Incluir o excluir carpetas y/o archivos
+/*Podemos excluir o incluir carpetas y archivos para que Typescript no haga nada o si. Para ello, debemos ir al final del
+archivo tsconfig.json y agregarle el "exclude" o el "include" y dentro de los mismos declara las carpetas o archivos
+que queremos excluir o inncluir
+
+            Completeness
+            "skipDefaultLibCheck": true,                      Skip type checking .d.ts files that are included with TypeScript.
+            "skipLibCheck": true                              Skip type checking all .d.ts files.
+        },
+        "exclude":[
+            "ejemplo",
+            "ejemplo.ts"
+        ],
+        "include":[
+            "node_modules"
+        ],
     }
-};
-llamarBatman(true);
-// Rest?
-const unirheroes = (...personas) => {
-    return `Superheories unidos: ${personas.join(", ")}`;
-};
-const sepheroes = unirheroes("Batman", "Catwoman", "Robin");
-console.log(sepheroes);
+*/
+//-- Outfile / Archivo de salid
+/*Cuando estamos trabajando en Vanila JS debemos tratar de que todo los archivos .ts y .js sean uno solo y elminar´
+ todos los archivos .js y .map, no sucede lo mismo cuando trabajamos con React. Para lograr esto debemos descomentar
+ el siguiente comando en el archivo tsconfig.json y agregarle el nombre del archivo de salida que en este caso se llamar "main.js"
+ 
+  "outFile": "./main.js",
+
+Esto va a crear el arvhivo main.js y el arvhico main.js.map los cuales no debemos eliminarlos.
+
+Es posible que se debe modificar el siguiente comando en el archivo tsconfig.json
+  
+  "module": "commonjs",
+
+  Si hay algun error, se debe reemplazar "commonjs" por "amd"
+
+*/
