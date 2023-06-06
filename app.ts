@@ -1,69 +1,59 @@
-//----------------- Clases en Typescript ---------------
+//----------------- Interfaces ---------------
+//-- Las Interfaces son lo mismo que los types con la diferencia que el primero es extendible
 
-//-- Definicion de una clase basica y cordta en Typescript.
-//Pdemos definir una clase de la siguiente manera:
-
-class Avenger {
-  //private name: string;  Todos los "private" se pueden obviar en declararlos aca ya que se puede delcarar directamente en el consturctor.
-  //private team: string;
-  //public realName?: string;
-  static age: number = 35; //Al ser una propiedad estatica se debe declarar si o si aca
-
-  constructor(
-    public name: string,
-    public team: string,
-    public realName?: string
-  ) {}
-
-  protected bio() {
-    //Al metodo "bio" si no le declaramos nada antes de declararlo entonces es publico, si queresmos que sea privado hay que declararle "private" antes.
-    return `${this.name} esta en el equipo de ${this.team}!!!`;
-  } //En caso de que se quiera heredar esta clase y este metodo, al metodo debemos declararle "protected" antes de inciar el mismo metodo.
-}
-const antman: Avenger = new Avenger("Antman", "Captain", "Scott Lang");
-
-//-- Herencia, super y extend.
-//En caso de que se quiera crear una nueva clase y que herede todas las propiedades del padre se lo debe hacer de la siguiente manera:
-class Xmen extends Avenger {
-  constructor(name: string, realName: string, public isMutan: boolean) {
-    super(name, realName); //Es obligatorio delcarar el super cada vez que se hereda un constuctor
-    console.log("Constructo Xman llamao");
-  }
-
-  //-- GET
-  //Este metodo no recibo ningun valor pero siempre devuelve algo:
-  get fullName() {
-    return `${this.name} ${this.realName}`;
-  }
-
-  //-- SET
-  //Este metodo recibo un valor, no devuelve nada pero siempre establece algun valor. Solo puede recibr un solo argumento
-  set fullName(name: string) {
-    //Se puede establecer cierta logica antes de establecer algo
-    if (name.length < 3) {
-      throw new Error("El nombre debe ser mayor a 3 letras");
-    }
-    this.name = name;
-  }
-
-  //-- METODO
-  getBioDesdeXmen() {
-    //Para poder heredar el metodo "bio" fue necesario declarar "protected" antes de inicar "bio"
-    console.log(super.bio());
-  }
+interface hero {
+  name: string;
+  age?: number;
+  powers: string[];
+  getName?: () => string;
 }
 
-const wolverine = new Xmen("Wolverine", "Logan", true);
-/*Para poder acceder al metodo de la clase hijo, la que hereda, debemos llamaro asi:
-  wolverine.getBioDesdeXmen()
-*/
+//Y ahora podemos llamar a "flash" y "superman" y declarar que son arreglo de tipo "hero".
+let flash: hero = {
+  name: "Barry Alen",
+  age: 24,
+  powers: ["Super velocidad", "Viajar en el tiempo"],
+};
 
-/*Para acceder al Get lo podemos hacer asi:
-  console.log(wolverine.fullName)
-*/
+let superman: hero = {
+  name: "Clark Kent",
+  age: 35,
+  powers: ["Super velocidad", "Super fuerza"],
+};
 
-/*Para acceder al Set lo podemos hacer asi:
-  wolverine.fullName='Lucas'
-  console.log(wolverine.fullName)
-*/
+//-- Estructuras de Interfaces complejas
+/*Cuando tenemos interfaces/objetos que tienen valores con mas de un nivel es recomendable que al segundo nivel 
+se lo declare a travez de una nueva interface*/
+interface client {
+  name: string;
+  age?: number;
+  adress: Adress; //En este caso al haber segundo nivel es necesario crear una nueva interfaz donde se delcara todo.
+}
+
+interface Adress {
+  //Se declara nueva interface para "adress" de "client"
+  id: number;
+  zip: number;
+  city: string;
+}
+
+const clientOne: client = {
+  name: "Lucas",
+  age: 32,
+  adress: {
+    id: 25,
+    zip: 5020,
+    city: "Cordoba",
+  },
+};
+
+const clientTwo: client = {
+  name: "Romina",
+  age: 36,
+  adress: {
+    id: 25,
+    zip: 5020,
+    city: "Cordoba",
+  },
+};
 
